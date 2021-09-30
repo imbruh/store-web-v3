@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.padroes.storewebv3.domain.Order;
+import br.edu.ifpb.padroes.storewebv3.facade.Fachada;
 import br.edu.ifpb.padroes.storewebv3.service.OrderService;
 
 @RestController
@@ -20,9 +21,12 @@ public class OrderRest {
 	@Autowired
 	OrderService orderService;
 	
+	@Autowired
+	Fachada fachada;
+	
 	@PostMapping("/create")
-	 public boolean createOrder(@RequestBody Order order) {
-        return orderService.createOrder(order);
+	 public Order createOrder(@RequestBody Order order) {
+        return fachada.criarPedido(order); 
     }
 	
 	@PostMapping("/createSku")

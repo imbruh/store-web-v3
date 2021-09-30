@@ -1,7 +1,10 @@
 package br.edu.ifpb.padroes.storewebv3.rest;
 
 import br.edu.ifpb.padroes.storewebv3.domain.Product;
+import br.edu.ifpb.padroes.storewebv3.facade.Fachada;
 import br.edu.ifpb.padroes.storewebv3.repository.ProductRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +19,13 @@ public class ProductResource {
     public ProductResource(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
-
+    
+    @Autowired
+	Fachada fachada;
+	
     @GetMapping("/")
     public List<Product> listProducts() {
-        return productRepository.getProductList();
+        return fachada.listarProdutosDisponiveis();
     }
 
     @PostMapping("/")

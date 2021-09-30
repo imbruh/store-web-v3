@@ -19,18 +19,17 @@ public class OrderService {
 	
 	private CommandHistory history = new CommandHistory();
 		
-	
 	@Autowired
 	Mediator mediator;
 		
-	public boolean createOrder(Order order) {
+	public Order createOrder(Order order) {
 		CreateOrderCommand create = new CreateOrderCommand(order);
 		if(create.execute()) {
 			history.push(order);
 			mediator.createOrder(order);
-			return true;
+			return order;
 		}
-		return false;
+		return null;
 	}
 	
 	public boolean createSku(Order order) {
