@@ -25,6 +25,11 @@ public class OrderRest {
         return orderService.createOrder(order);
     }
 	
+	@PostMapping("/createSku")
+	 public boolean createSku(@RequestBody Order order) {
+       return orderService.createSku(order);
+   }
+	
 	@GetMapping("/list")
 	 public List<Order> listOrder() {
        return orderService.getOrders();

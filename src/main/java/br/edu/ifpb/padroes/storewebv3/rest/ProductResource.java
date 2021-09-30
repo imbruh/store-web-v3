@@ -30,12 +30,12 @@ public class ProductResource {
             return ResponseEntity.badRequest().build();
         }
     }
-
+    
     @DeleteMapping("/")
     public ResponseEntity<Void> deleteProduct(@RequestBody Product product) {
         productRepository.remove(product);
         return ResponseEntity.ok().build();
     }
 
-
+    
 }

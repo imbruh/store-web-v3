@@ -6,7 +6,7 @@ import br.edu.ifpb.padroes.storewebv3.domain.EletronicProduct;
 public class DoDiscount implements ProductDiscount{
 	
 	public Long discountBook(BookProduct book) {
-		return book.getPrice() - 20; 
+		return book.getPrice() - 5; 
 	}
 	
 	public Long discountEletronic(EletronicProduct eletronic) {
