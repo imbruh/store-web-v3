@@ -1,8 +1,11 @@
 package br.edu.ifpb.padroes.storewebv3.payment;
 
 import br.edu.ifpb.padroes.storewebv3.config.StoreConfigurationProperties;
+import br.edu.ifpb.padroes.storewebv3.domain.BookProduct;
 import br.edu.ifpb.padroes.storewebv3.domain.Order;
 import br.edu.ifpb.padroes.storewebv3.domain.Product;
+import visitor.ProductDiscount;
+
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Component;
 public class StripeApi {
 
     private final StoreConfigurationProperties storeConfigurationProperties;
+    
+    private BookProduct bookProduct = new BookProduct();
 
     public StripeApi(StoreConfigurationProperties storeConfigurationProperties) {
         this.storeConfigurationProperties = storeConfigurationProperties;
@@ -38,6 +43,8 @@ public class StripeApi {
     }
 
     public Sku createSKU(Order order, Product product) {
+    	Long precoDesconto = bookProduct.discount((ProductDiscount) product);
+    	product.setPrice(precoDesconto);
         SkuCreateParams skuCreateParams = SkuCreateParams.builder().setCurrency("BRL").setPrice(product.getPrice()).setProduct(product.getTitle()).build();
         try {
             return Sku.create(skuCreateParams);
